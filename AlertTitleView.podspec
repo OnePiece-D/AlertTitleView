@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "OnePiece-D" => "952942236@qq.com" }
   s.platform     = :ios, '6.0'
-  s.source       = { :git => "https://github.com/OnePiece-D/AlertTitleView.git", :tag => s.version.to_s }
-  s.source_files  = 'AlertTitleView/*’
+  s.source       = {:git => "https://github.com/OnePiece-D/AlertTitleView.git", :tag => s.version.to_s}
+  s.source_files  = 'WYLAlertTipView’, ‘AlertTitleViewDemo/AlertTitleView/*.{h.m}’
   s.requires_arc = true
 end
