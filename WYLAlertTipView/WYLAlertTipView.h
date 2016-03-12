@@ -19,7 +19,7 @@
 
 - (void)titleColor:(UIColor *)color font:(UIFont *)font;
 
-
++ (void)showWithTitle:(NSString *)title;
 
 - (void)show;
 - (void)hidden;
