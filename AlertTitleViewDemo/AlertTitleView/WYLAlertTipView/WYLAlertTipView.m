@@ -50,9 +50,9 @@
 
 + (void)showWithTitle:(NSString *)title {
     WYLAlertTipView * view = [WYLAlertTipView alertTopWithTitle:title];
-    UIViewController * viewController = [self getCurrentVC];
-    [viewController.view addSubview:view];
-    [viewController.view bringSubviewToFront:view];
+    UIView * currentWindow = [self getCurrentWindow];
+    [currentWindow addSubview:view];
+    [currentWindow bringSubviewToFront:view];
     
     [view show];
 }
@@ -77,8 +77,28 @@
     
 }
 
-//获取当前屏幕显示的viewcontroller
-+ (UIViewController *)getCurrentVC
+//获取当前屏幕显示的window
++ (UIView *)getCurrentWindow
+{
+    UIWindow * window = [[[UIApplication sharedApplication] windows] lastObject];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+    return window;
+}
+
+//获取当前屏幕显示的viewcontroller (暂时无用测试的也没有什么效果)
+- (UIViewController *)getCurrentVC
 {
     UIViewController *result = nil;
     
