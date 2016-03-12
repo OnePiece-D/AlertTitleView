@@ -20,10 +20,11 @@
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor yellowColor];
     // Do any additional setup after loading the view, typically from a nib.
-    WYLAlertTipView * view = [WYLAlertTipView alertTopWithTitle:@"titletitletitle"];
-    [self.view addSubview:view];
-    
-    [view show];
+//    WYLAlertTipView * view = [WYLAlertTipView alertTopWithTitle:@"titletitletitle"];
+//    [self.view addSubview:view];
+//    
+//    [view show];
+    [WYLAlertTipView showWithTitle:@"titletitletitletitletitle"];
 }
 
 - (void)didReceiveMemoryWarning {
