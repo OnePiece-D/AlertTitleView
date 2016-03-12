@@ -15,8 +15,10 @@
     NSString * _title;
 }
 
+
+#pragma mark -initWithPoint OR size-
 + (instancetype)alertTopWithTitle:(NSString *)title {
-    CGSize size = [title sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    CGSize size = [self sizeTitle:title font:[UIFont systemFontOfSize:14]];
     CGRect frame = CGRectMake(0, 0, size.width + 8, size.height + 8);
     
     CGPoint point = CGPointMake([UIScreen mainScreen].bounds.size.width / 2.f, [UIScreen mainScreen].bounds.size.height - 80);
@@ -27,6 +29,23 @@
 
 + (instancetype)alertTipWithFrame:(CGRect)frame title:(NSString *)title {
     return [[self alloc] initWithFrame:frame title:title];
+}
+
+
++ (void)showWithFrame:(CGRect)frame
+                title:(NSString *)title
+            descTitle:(NSString *)descTitle
+               button:(UIButton *)button
+                image:(UIImage *)image
+      backgroundImage:(UIImage *)backgroundImage {
+    //添加视图
+    WYLAlertTipView * tipView = [[WYLAlertTipView alloc] initWithFrame:frame title:title];
+    UIView * currentView = [self getCurrentWindow];
+    [currentView addSubview:tipView];
+    [currentView bringSubviewToFront:tipView];
+    
+    //设置内容属性
+    //现在是空的
 }
 
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title {
@@ -42,12 +61,7 @@
     return self;
 }
 
-
-- (void)titleColor:(UIColor *)color font:(UIFont *)font {
-    self.titleLabel.textColor = color;
-    self.titleLabel.font = font;
-}
-
+#pragma mark -initWithTitle(没有frame)-
 + (void)showWithTitle:(NSString *)title {
     WYLAlertTipView * view = [WYLAlertTipView alertTopWithTitle:title];
     UIView * currentWindow = [self getCurrentWindow];
@@ -57,6 +71,15 @@
     [view show];
 }
 
+#pragma mark -设置控件样式-
+
+- (void)titleColor:(UIColor *)color font:(UIFont *)font {
+    self.titleLabel.textColor = color;
+    self.titleLabel.font = font;
+}
+
+
+#pragma mark -设置显示-
 - (void)show {
     self.backgroundColor = [UIColor grayColor];
     [self addSubview:self.titleLabel];
@@ -67,7 +90,6 @@
 }
 
 - (void)hidden {
-    
     [UIView animateWithDuration:0.53 animations:^{
         self.alpha = 0.01;
     } completion:^(BOOL finished) {
@@ -77,6 +99,7 @@
     
 }
 
+#pragma mark -获取superView视图-
 //获取当前屏幕显示的window
 + (UIView *)getCurrentWindow
 {
@@ -127,6 +150,10 @@
     return result;
 }
 
+#pragma mark -工具-
++ (CGSize)sizeTitle:(NSString *)title font:(UIFont *)font {
+    return [title sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+}
 
 #pragma mark -lazyloading-
 
@@ -140,6 +167,18 @@
         _titleLabel.textColor = [UIColor whiteColor];
     }
     return _titleLabel;
+}
+
+- (UILabel *)descLabel {
+    if (!_descLabel) {
+        _descLabel = [[UILabel alloc] init];
+        _descLabel.textAlignment = NSTextAlignmentCenter;
+        _descLabel.numberOfLines = 0;
+        
+        _descLabel.font = [UIFont systemFontOfSize:12];
+        _descLabel.textColor = [UIColor whiteColor];
+    }
+    return _descLabel;
 }
 
 @end
