@@ -24,7 +24,10 @@
 //    [self.view addSubview:view];
 //    
 //    [view show];
-    [WYLAlertTipView showWithTitle:@"titletitletitletitletitle"];
+//    [WYLAlertTipView showWithTitle:@"titletitletitletitletitle"];
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"button" forState:UIControlStateNormal];
+    [WYLAlertTipView showWithFrame:[UIScreen mainScreen].bounds title:@"title" descTitle:@"descTitle" button:button image:nil backgroundImage:[UIImage imageNamed:@"29x58PICIjD_1024.jpg"]];
 }
 
 - (void)didReceiveMemoryWarning {

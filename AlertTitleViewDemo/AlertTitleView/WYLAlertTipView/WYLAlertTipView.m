@@ -8,6 +8,13 @@
 
 #import "WYLAlertTipView.h"
 
+@interface WYLAlertTipView()
+
+@property (nonatomic, strong) UIImageView * backImageView;
+
+@property (nonatomic, strong) UIImageView * iconView;
+
+@end
 
 @implementation WYLAlertTipView
 
@@ -45,7 +52,34 @@
     [currentView bringSubviewToFront:tipView];
     
     //设置内容属性
-    //现在是空的
+    tipView.titleLabel.text = title;
+    tipView.descLabel.text = descTitle;
+    tipView.button = button;
+    //image没有
+    tipView.backImageView.image = backgroundImage;
+    
+    //addSubView
+    [tipView addSubview:tipView.backImageView];
+    [tipView.backImageView addSubview:tipView.titleLabel];
+    [tipView.backImageView addSubview:tipView.descLabel];
+    [tipView.backImageView addSubview:tipView.button];
+//    [tipView addSubview:tipView.image];
+    
+    //setFrame
+    CGFloat width = CGRectGetWidth(frame);
+//    CGFloat height = CGRectGetHeight(frame);
+    CGFloat centerX = (CGRectGetMinX(frame) + CGRectGetMaxX(frame)) / 2.f;
+    CGFloat centerY = (CGRectGetMinY(frame) + CGRectGetMaxY(frame)) / 2.f;
+    //位置
+    tipView.backImageView.frame = tipView.bounds;
+    tipView.titleLabel.frame = CGRectMake(0, 150, width, 50);
+    
+    tipView.descLabel.frame = CGRectMake(0, 200, width, 80);
+    
+    tipView.button.frame = CGRectMake(0, 0, 50, 30);
+    tipView.button.center = CGPointMake(centerX, centerY);
+    tipView.button.titleLabel.font = [UIFont systemFontOfSize:14];
+    [tipView.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title {
@@ -179,6 +213,20 @@
         _descLabel.textColor = [UIColor whiteColor];
     }
     return _descLabel;
+}
+
+- (UIButton *)button {
+    if (!_button) {
+        _button = [UIButton buttonWithType:UIButtonTypeCustom];
+    }
+    return _button;
+}
+
+- (UIImageView *)backImageView {
+    if (!_backImageView) {
+        _backImageView = [[UIImageView alloc] init];
+    }
+    return _backImageView;
 }
 
 @end

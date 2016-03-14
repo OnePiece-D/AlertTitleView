@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B7A30141C9650E100B9D812 /* 29x58PICIjD_1024.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B7A30131C9650E100B9D812 /* 29x58PICIjD_1024.jpg */; };
 		5B8BB0B21C925ECD006FB4AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BB0B11C925ECD006FB4AC /* main.m */; };
 		5B8BB0B51C925ECD006FB4AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BB0B41C925ECD006FB4AC /* AppDelegate.m */; };
 		5B8BB0B81C925ECD006FB4AC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BB0B71C925ECD006FB4AC /* ViewController.m */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B7A30131C9650E100B9D812 /* 29x58PICIjD_1024.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 29x58PICIjD_1024.jpg; sourceTree = "<group>"; };
 		5B8BB0AD1C925ECD006FB4AC /* AlertTitleView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlertTitleView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8BB0B11C925ECD006FB4AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5B8BB0B31C925ECD006FB4AC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 		5B8BB0AF1C925ECD006FB4AC /* AlertTitleView */ = {
 			isa = PBXGroup;
 			children = (
+				5B7A30131C9650E100B9D812 /* 29x58PICIjD_1024.jpg */,
 				5B8BB1101C92A098006FB4AC /* WYLAlertTipView */,
 				5B8BB0B31C925ECD006FB4AC /* AppDelegate.h */,
 				5B8BB0B41C925ECD006FB4AC /* AppDelegate.m */,
@@ -150,6 +153,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B7A30141C9650E100B9D812 /* 29x58PICIjD_1024.jpg in Resources */,
 				5B8BB0C01C925ECD006FB4AC /* LaunchScreen.storyboard in Resources */,
 				5B8BB0BD1C925ECD006FB4AC /* Assets.xcassets in Resources */,
 				5B8BB0BB1C925ECD006FB4AC /* Main.storyboard in Resources */,
