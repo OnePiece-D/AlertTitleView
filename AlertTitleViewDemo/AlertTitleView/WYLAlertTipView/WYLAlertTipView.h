@@ -28,22 +28,25 @@
 /**
  *  图标
  */
-@property (nonatomic, strong) UIImage * image;
+@property (nonatomic, strong) UIImageView * iconView;
 
 /**
  *  背景图
  */
-@property (nonatomic, strong) UIImage * backgroundImage;
+@property (nonatomic, strong) UIImageView * backImageView;
 
 /**
  *  需要设置frame位置大小,添加到superView
  */
++ (instancetype)alertTipWithFrame:(CGRect)frame title:(NSString *)title;
 
 + (instancetype)alertTopWithTitle:(NSString *)title;
-+ (instancetype)alertTipWithFrame:(CGRect)frame title:(NSString *)title;
++ (instancetype)alertTopWithImage:(UIImage *)image;
 
 
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title;
+- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image;
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title image:(UIImage *)image; //defult height is Height /2.f
 
 /**
  *  给titleLabel调色和字体
@@ -56,9 +59,12 @@
  */
 + (void)showWithTitle:(NSString *)title;
 
++ (void)showWithImage:(UIImage *)image;
+
+
 
 /**
- *  添加位图
+ *  添加位图            每个控件的具体位置需要依据具体设定
  *
  *  @param frame           设置大小
  *  @param title           位图title

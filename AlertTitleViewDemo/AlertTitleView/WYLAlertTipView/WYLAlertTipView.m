@@ -8,11 +8,9 @@
 
 #import "WYLAlertTipView.h"
 
+#define iconSize(_width,_height) CGSizeMake(_width, _height)
+
 @interface WYLAlertTipView()
-
-@property (nonatomic, strong) UIImageView * backImageView;
-
-@property (nonatomic, strong) UIImageView * iconView;
 
 @end
 
@@ -34,6 +32,15 @@
     return [[self alloc] initWithFrame:frame title:title];
 }
 
++ (instancetype)alertTopWithImage:(UIImage *)image {
+    //默认大小80*80
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    
+    CGRect frame = CGRectMake(screenSize.width / 2.f - 40, screenSize.height / 2.f - 40, 80, 80);
+    
+    return [[self alloc] initWithFrame:frame image:image];
+}
+
 + (instancetype)alertTipWithFrame:(CGRect)frame title:(NSString *)title {
     return [[self alloc] initWithFrame:frame title:title];
 }
@@ -47,7 +54,7 @@
       backgroundImage:(UIImage *)backgroundImage {
     //添加视图
     WYLAlertTipView * tipView = [[WYLAlertTipView alloc] initWithFrame:frame title:title];
-    UIView * currentView = [self getCurrentWindow];
+    UIView * currentView = [tipView getCurrentWindow];
     [currentView addSubview:tipView];
     [currentView bringSubviewToFront:tipView];
     
@@ -95,10 +102,42 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image {
+    if ([super initWithFrame:frame]) {
+        self.iconView.image = image;
+        self.iconView.frame = self.bounds;
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title image:(UIImage *)image {
+    if ([super initWithFrame:frame]) {
+        _title = title;
+        _iconView.image = image;
+        
+        
+        CGFloat width = CGRectGetWidth(frame);
+        CGFloat height = CGRectGetHeight(frame);
+        self.titleLabel.frame = CGRectMake(0, 0, width, height / 2.f);
+        self.iconView.frame = CGRectMake(0, CGRectGetMaxY(self.titleLabel.frame), width, height - CGRectGetMaxY(self.titleLabel.frame));
+    }
+    return self;
+}
+
 #pragma mark -initWithTitle(没有frame)-
 + (void)showWithTitle:(NSString *)title {
     WYLAlertTipView * view = [WYLAlertTipView alertTopWithTitle:title];
-    UIView * currentWindow = [self getCurrentWindow];
+    UIView * currentWindow = [view getCurrentWindow];
+    [currentWindow addSubview:view];
+    [currentWindow bringSubviewToFront:view];
+    
+    [view show];
+}
+
++ (void)showWithImage:(UIImage *)image {
+    WYLAlertTipView * view = [WYLAlertTipView alertTopWithImage:image];
+    
+    UIView * currentWindow = [view getCurrentWindow];
     [currentWindow addSubview:view];
     [currentWindow bringSubviewToFront:view];
     
@@ -116,7 +155,21 @@
 #pragma mark -设置显示-
 - (void)show {
     self.backgroundColor = [UIColor grayColor];
-    [self addSubview:self.titleLabel];
+    
+    if (!self.superview) {
+        UIView * currentWindow = [self getCurrentWindow];
+        [currentWindow addSubview:self];
+        [currentWindow bringSubviewToFront:self];
+    }
+    
+    
+    if (self.titleLabel.text.length) {
+        [self addSubview:self.titleLabel];
+    }
+    
+    if (self.iconView.image) {
+        [self addSubview:self.iconView];
+    }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self hidden];
@@ -127,6 +180,7 @@
     [UIView animateWithDuration:0.53 animations:^{
         self.alpha = 0.01;
     } completion:^(BOOL finished) {
+        [self.iconView removeFromSuperview];
         [self.titleLabel removeFromSuperview];
         [self removeFromSuperview];
     }];
@@ -135,7 +189,7 @@
 
 #pragma mark -获取superView视图-
 //获取当前屏幕显示的window
-+ (UIView *)getCurrentWindow
+- (UIView *)getCurrentWindow
 {
     UIWindow * window = [[[UIApplication sharedApplication] windows] lastObject];
     if (window.windowLevel != UIWindowLevelNormal)
@@ -220,6 +274,13 @@
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
     }
     return _button;
+}
+
+- (UIImageView *)iconView {
+    if (!_iconView) {
+        _iconView = [[UIImageView alloc] init];
+    }
+    return _iconView;
 }
 
 - (UIImageView *)backImageView {
